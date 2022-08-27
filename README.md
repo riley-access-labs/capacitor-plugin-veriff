@@ -1,6 +1,28 @@
 # capacitor-plugin-veriff
 
-Capacitor plugin exposing Veriff SDK
+[![npm version](https://img.shields.io/npm/v/capacitor-plugin-veriff)](https://www.npmjs.com/package/capacitor-plugin-veriff)
+
+
+Capacitor plugin exposing the [Veriff SDK](https://www.veriff.com/) - Smart and scalable identity verification
+
+
+## Integration
+
+Add the maven repository to the `android/build.gradle` application file:
+
+```
+allprojects {
+    repositories {
+		// make sure to add this before other repos
+		maven { url "https://cdn.veriff.me/android/" } // <------------ ADD THIS LINE
+
+        google()
+        ...
+    }
+}
+
+```
+
 
 ## Install
 
@@ -8,6 +30,55 @@ Capacitor plugin exposing Veriff SDK
 npm install capacitor-plugin-veriff
 npx cap sync
 ```
+
+The plugin exposes the VERIFF JavaScript namespace which cointains a Veriff end-to-end verification service.
+
+To use this plugin:
+
+In your ionic app:
+
+1. Import the `VeriffPlugin` in your ionic app
+
+```javascript
+import { VeriffPlugin } from 'capacitor-plugin-veriff';
+```
+
+2. Create a [session verification](https://developers.veriff.com/#/sessions) with your Veriff API KEY.
+
+
+2. Start the verification process:
+
+We will need the verification sessionUrl to start the Veriff process
+
+```javascript
+const sessionUrl = session.verification.url;
+const configuration = {
+  themeColor: '#0F3C32'
+};
+
+const options = {sessionUrl, configuration};
+try {
+	const result = await VeriffPlugin.start(options);
+	  // The promise returns the VeriffSDK verification result
+	  console.log("Result: ", result);
+} catch(error) {
+	console.error('Error starting Veriff ', error)
+}
+
+```
+
+## Building
+
+Within root plugin path:
+
+```bash
+$ npm run build
+```
+
+## Bugs
+
+- [Bug Tracker](https://github.com/CSantosM/capacitor-plugin-veriff/issues)
+
 
 ## API
 
