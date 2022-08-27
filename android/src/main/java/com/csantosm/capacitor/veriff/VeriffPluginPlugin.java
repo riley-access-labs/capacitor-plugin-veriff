@@ -5,10 +5,8 @@ import android.graphics.Color;
 import android.util.Log;
 
 import androidx.activity.result.ActivityResult;
-import androidx.annotation.Nullable;
 
 import com.getcapacitor.JSObject;
-import com.getcapacitor.NativePlugin;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
@@ -16,10 +14,10 @@ import com.getcapacitor.annotation.ActivityCallback;
 import com.getcapacitor.annotation.CapacitorPlugin;
 
 
-import com.veriff.VeriffBranding;
-import com.veriff.VeriffConfiguration;
-import com.veriff.VeriffSdk;
-import com.veriff.VeriffResult;
+import com.veriff.Branding;
+import com.veriff.Configuration;
+import com.veriff.Sdk;
+import com.veriff.Result;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +43,7 @@ public class VeriffPluginPlugin extends Plugin {
     }
 
     private void launchVeriffSDK(PluginCall call, String sessionUrl, JSONObject config) throws JSONException {
-        VeriffBranding.Builder branding = new VeriffBranding.Builder();
+        Branding.Builder branding = new Branding.Builder();
 
         if(!config.isNull("themeColor")){
             // Change the default theme color if it is not null
@@ -53,10 +51,10 @@ public class VeriffPluginPlugin extends Plugin {
             branding.themeColor(Color.parseColor(themeColor));
         }
 
-        VeriffConfiguration configuration = new VeriffConfiguration.Builder()
+        Configuration configuration = new Configuration.Builder()
                 .branding(branding.build())
                 .build();
-        Intent intent = VeriffSdk.createLaunchIntent(getActivity(), sessionUrl, configuration);
+        Intent intent = Sdk.createLaunchIntent(getActivity(), sessionUrl, configuration);
         intent.putExtra("requestCode", REQUEST_CODE);
 
         // https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
@@ -68,7 +66,7 @@ public class VeriffPluginPlugin extends Plugin {
         Intent data = activityResult.getData();
 
         if (data != null) {
-            VeriffResult veriffResult = VeriffResult.fromResultIntent(data);
+            Result veriffResult = Result.fromResultIntent(data);
             if (veriffResult != null) {
                 try {
                     JSObject result = handleResult(veriffResult);
@@ -82,9 +80,9 @@ public class VeriffPluginPlugin extends Plugin {
         }
     }
 
-    public JSObject handleResult(VeriffResult result) throws JSONException {
+    public JSObject handleResult(Result result) throws JSONException {
         JSObject resultJson = new JSObject();
-        VeriffResult.Status status = result.getStatus();
+        Result.Status status = result.getStatus();
         resultJson.put("status", status.toString());
         Log.d("Handle VeriffSDK result", status.toString());
         switch (status) {
