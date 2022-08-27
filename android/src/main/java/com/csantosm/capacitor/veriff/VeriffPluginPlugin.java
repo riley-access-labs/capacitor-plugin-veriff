@@ -3,22 +3,17 @@ package com.csantosm.capacitor.veriff;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
-
 import androidx.activity.result.ActivityResult;
-
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.ActivityCallback;
 import com.getcapacitor.annotation.CapacitorPlugin;
-
-
 import com.veriff.Branding;
 import com.veriff.Configuration;
-import com.veriff.Sdk;
 import com.veriff.Result;
-
+import com.veriff.Sdk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,15 +40,13 @@ public class VeriffPluginPlugin extends Plugin {
     private void launchVeriffSDK(PluginCall call, String sessionUrl, JSONObject config) throws JSONException {
         Branding.Builder branding = new Branding.Builder();
 
-        if(!config.isNull("themeColor")){
+        if (!config.isNull("themeColor")) {
             // Change the default theme color if it is not null
             String themeColor = config.getString("themeColor");
             branding.themeColor(Color.parseColor(themeColor));
         }
 
-        Configuration configuration = new Configuration.Builder()
-                .branding(branding.build())
-                .build();
+        Configuration configuration = new Configuration.Builder().branding(branding.build()).build();
         Intent intent = Sdk.createLaunchIntent(getActivity(), sessionUrl, configuration);
         intent.putExtra("requestCode", REQUEST_CODE);
 
