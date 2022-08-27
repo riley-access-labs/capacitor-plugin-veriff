@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.Nullable;
 
 import com.getcapacitor.JSObject;
@@ -15,10 +16,10 @@ import com.getcapacitor.annotation.ActivityCallback;
 import com.getcapacitor.annotation.CapacitorPlugin;
 
 
-import com.veriff.Branding;
-import com.veriff.Configuration;
-import com.veriff.Sdk;
-import com.veriff.Result;
+import com.veriff.VeriffBranding;
+import com.veriff.VeriffConfiguration;
+import com.veriff.VeriffSdk;
+import com.veriff.VeriffResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,63 +29,62 @@ public class VeriffPluginPlugin extends Plugin {
 
     private static final int REQUEST_CODE = 800;
     private static JSONObject veriffConfig = new JSONObject();
-    private VeriffPlugin implementation = new VeriffPlugin();
-
-    private static PluginCall callback;
-
-    @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
-    }
 
     @PluginMethod
     public void start(PluginCall call) {
-        callback = call;
         String sessionUrl = call.getString("sessionUrl");
-        this.launchVeriffSDK(sessionUrl);
+        JSONObject config = call.getObject("configuration");
+        Log.d("VeriffPlugin", sessionUrl);
+
+        try {
+            this.launchVeriffSDK(call, sessionUrl, config);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            call.reject(e.getStackTrace().toString());
+        }
     }
 
-    private void launchVeriffSDK(String sessionUrl) {
-        Branding.Builder branding = new Branding.Builder();
+    private void launchVeriffSDK(PluginCall call, String sessionUrl, JSONObject config) throws JSONException {
+        VeriffBranding.Builder branding = new VeriffBranding.Builder();
 
-        if (veriffConfig.length() > 0) {
-            try {
-                branding.themeColor(Color.parseColor(veriffConfig.getString("themeColor")));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        if(!config.isNull("themeColor")){
+            // Change the default theme color if it is not null
+            String themeColor = config.getString("themeColor");
+            branding.themeColor(Color.parseColor(themeColor));
         }
 
-        Configuration configuration = new Configuration.Builder()
+        VeriffConfiguration configuration = new VeriffConfiguration.Builder()
                 .branding(branding.build())
                 .build();
-        Intent intent = Sdk.createLaunchIntent(getActivity(), sessionUrl, configuration);
+        Intent intent = VeriffSdk.createLaunchIntent(getActivity(), sessionUrl, configuration);
+        intent.putExtra("requestCode", REQUEST_CODE);
 
         // https://stackoverflow.com/questions/62671106/onactivityresult-method-is-deprecated-what-is-the-alternative
-        startActivityForResult(callback, intent, REQUEST_CODE);
+        startActivityForResult(call, intent, "onActivityResult");
     }
 
     @ActivityCallback
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE && data != null) {
-            Result result = Result.fromResultIntent(data);
-            if (result != null) {
+    public void onActivityResult(PluginCall call, ActivityResult activityResult) {
+        Intent data = activityResult.getData();
+
+        if (data != null) {
+            VeriffResult veriffResult = VeriffResult.fromResultIntent(data);
+            if (veriffResult != null) {
                 try {
-                    handleResult(result);
+                    JSObject result = handleResult(veriffResult);
+                    call.resolve(result);
                 } catch (JSONException e) {
-                    callback.reject(e.getStackTrace().toString());
+                    call.reject(e.getStackTrace().toString());
                 }
             }
+        } else {
+            call.reject("Result after launch Veriff is null");
         }
     }
 
-    public void handleResult(Result result) throws JSONException {
+    public JSObject handleResult(VeriffResult result) throws JSONException {
         JSObject resultJson = new JSObject();
-        Result.Status status = result.getStatus();
+        VeriffResult.Status status = result.getStatus();
         resultJson.put("status", status.toString());
         Log.d("Handle VeriffSDK result", status.toString());
         switch (status) {
@@ -105,8 +105,6 @@ public class VeriffPluginPlugin extends Plugin {
                 resultJson.put("message", "Unknown result state");
                 break;
         }
-        callback.resolve(resultJson);
+        return resultJson;
     }
-
-
 }
