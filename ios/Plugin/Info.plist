@@ -20,5 +20,19 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>Veriff plugin needs camera permissions</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Veriff plugin needs microphone permissions</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Veriff plugin needs poto library access permissions</string>
+	<key>NFCReaderUsageDescription</key>
+	<string>Veriff plugin needs NFC permissions</string>
+	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+	<array>
+		<string>A0000002471001</string>
+		<string>A0000002472001</string>
+		<string>00000000000000</string>
+	</array>
 </dict>
 </plist>
