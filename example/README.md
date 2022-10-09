@@ -1,12 +1,17 @@
-## Created with Capacitor Create App
+## Integration
 
-This app was created using [`@capacitor/create-app`](https://github.com/ionic-team/create-capacitor-app),
-and comes with a very minimal shell for building an app.
+1. Add the maven repository to `android/build.gradle` file:
 
-### Running this example
+```
+allprojects {
+    repositories {
+		// make sure to add this before other repos
+		maven { url "https://cdn.veriff.me/android/" } // <------------ ADD THIS
 
-To run the provided example, you can use [serve](https://www.npmjs.com/package/serve):
+        google()
+        mavenCentral()
+    }
+}
 
-```bash
-npx serve
+
 ```

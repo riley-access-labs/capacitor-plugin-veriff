@@ -1,0 +1,7 @@
+{
+  "name": "capacitor-plugin-veriff-sample",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
