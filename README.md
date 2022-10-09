@@ -8,6 +8,8 @@ Capacitor plugin exposing the [Veriff SDK](https://www.veriff.com/) - Smart and 
 
 ## Integration
 
+### Android
+
 Add the maven repository to the `android/build.gradle` application file:
 
 ```
@@ -21,6 +23,21 @@ allprojects {
     }
 }
 
+```
+
+### iOS
+
+add the required permissions in your Info.plist file
+
+```
+<key>NSCameraUsageDescription</key>
+<string>Veriff plugin needs camera permissions</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>Veriff plugin needs microphone permissions</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Veriff plugin needs poto library access permissions</string>
+<key>NFCReaderUsageDescription</key>
+<string>Veriff plugin needs NFC permissions</string>
 ```
 
 
