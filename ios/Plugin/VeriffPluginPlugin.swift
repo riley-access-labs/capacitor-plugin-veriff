@@ -14,14 +14,14 @@ public class VeriffPluginPlugin: CAPPlugin {
         
         if let veriffConfiguration: Dictionary<String,String> = call.getObject("configuration") as? Dictionary<String,String> {
             let branding = VeriffSdk.Branding()
-            branding.primary = UIColor.init(hexString: "#9747FF")
-            branding.secondary = UIColor.init(hexString: "#130426")
-            branding.onBackgroundTertiary = UIColor.init(hexString: "#6D11E6")
-            branding.onSecondary = UIColor.init(hexString: "#FFFFFF")
-            branding.onBackgroundSecondary = UIColor.init(hexString: "#130426")
-            branding.background = UIColor.init(hexString: "#FFFFFF")
-            branding.success = UIColor.init(hexString: "#06AD5D")
-            branding.error = UIColor.init(hexString: "#EA0A0A")
+            branding.primary = UIColor.init(hexString: veriffConfiguration["primary"]!)
+            branding.secondary = UIColor.init(hexString: veriffConfiguration["secondary"]!)
+            branding.onBackgroundTertiary = UIColor.init(hexString: veriffConfiguration["onBackgroundTertiary"]!)
+            branding.onSecondary = UIColor.init(hexString: veriffConfiguration["onSecondary"]!)
+            branding.onBackgroundSecondary = UIColor.init(hexString: veriffConfiguration["onBackgroundSecondary"]!)
+            branding.background = UIColor.init(hexString: veriffConfiguration["background"]!)
+            branding.success = UIColor.init(hexString: veriffConfiguration["success"]!)
+            branding.error = UIColor.init(hexString: veriffConfiguration["error"]!)
             branding.buttonRadius = CGFloat(8)
             let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/gwop-dev.appspot.com/o/public%2Fgwop_logo_dark.png?alt=media&token=131c18f6-e941-4564-83cd-90eea04580df")
             if let data = try? Data(contentsOf: url!) {
