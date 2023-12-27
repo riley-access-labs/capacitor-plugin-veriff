@@ -16,6 +16,7 @@ public class VeriffPluginPlugin: CAPPlugin {
             let branding = VeriffSdk.Branding()
             branding.primary = UIColor.init(hexString: "#9747FF")
             branding.secondary = UIColor.init(hexString: "#130426")
+            branding.onBackgroundTertiary = UIColor.init(hexString: "#6D11E6")
             branding.onSecondary = UIColor.init(hexString: "#FFFFFF")
             branding.onBackgroundSecondary = UIColor.init(hexString: "#9747FF")
             branding.background = UIColor.init(hexString: "#FFFFFF")
