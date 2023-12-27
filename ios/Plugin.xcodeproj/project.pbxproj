@@ -18,6 +18,7 @@
 		585CF91A28F31C6800486497 /* Veriff.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 585CF91928F31C6800486497 /* Veriff.xcframework */; };
 		585CF91B28F31C6800486497 /* Veriff.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 585CF91928F31C6800486497 /* Veriff.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		58D8230728F0ABAF004E5B6B /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D8230628F0ABAF004E5B6B /* Utils.swift */; };
+		9BC66F072B3C66AC003EBCE6 /* gwop_logo_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9BC66F062B3C66AC003EBCE6 /* gwop_logo_dark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		585CF91928F31C6800486497 /* Veriff.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:JAU97JKMS6:VERIFF OU"; lastKnownFileType = wrapper.xcframework; name = Veriff.xcframework; path = Pods/VeriffSDK/Veriff.xcframework; sourceTree = "<group>"; };
 		58D8230628F0ABAF004E5B6B /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		7F665912DA49D45AF9B54F0C /* Pods_Plugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Plugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BC66F062B3C66AC003EBCE6 /* gwop_logo_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gwop_logo_dark.png; sourceTree = "<group>"; };
 		FB245704B7AE727602630A7A /* Pods-Plugin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plugin.release.xcconfig"; path = "Target Support Files/Pods-Plugin/Pods-Plugin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 		50ADFF8A201F53D600D50D53 /* Plugin */ = {
 			isa = PBXGroup;
 			children = (
+				9BC66F062B3C66AC003EBCE6 /* gwop_logo_dark.png */,
 				50E1A94720377CB70090CE1A /* VeriffPluginPlugin.swift */,
 				58D8230628F0ABAF004E5B6B /* Utils.swift */,
 				50ADFF8B201F53D600D50D53 /* VeriffPluginPlugin.h */,
@@ -250,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BC66F072B3C66AC003EBCE6 /* gwop_logo_dark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
