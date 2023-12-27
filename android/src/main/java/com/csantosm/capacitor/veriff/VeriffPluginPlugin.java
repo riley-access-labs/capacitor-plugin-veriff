@@ -1,6 +1,8 @@
 package com.csantosm.capacitor.veriff;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.util.Log;
 import androidx.activity.result.ActivityResult;
@@ -16,6 +18,9 @@ import com.veriff.Result;
 import com.veriff.Sdk;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.URL;
 
 @CapacitorPlugin(name = "VeriffPlugin")
 public class VeriffPluginPlugin extends Plugin {
@@ -44,7 +49,7 @@ public class VeriffPluginPlugin extends Plugin {
             // Change the default theme color if it is not null
             String primary = config.getString("primary");
             String backgroundColor = config.getString("backgroundColor");
-            String logo = config.getString("logo");
+            branding.logo(R.drawable.gwop_logo_dark);
             branding.primary(Color.parseColor(primary));
             branding.background(Color.parseColor(backgroundColor));
         }
