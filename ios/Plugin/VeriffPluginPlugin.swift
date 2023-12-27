@@ -13,7 +13,9 @@ public class VeriffPluginPlugin: CAPPlugin {
         var configuration = VeriffSdk.Configuration()
         
         if let veriffConfiguration: Dictionary<String,String> = call.getObject("configuration") as? Dictionary<String,String> {
-            let branding = VeriffSdk.Branding(themeColor: UIColor.init(hexString: veriffConfiguration["themeColor"]!))
+            let branding = VeriffSdk.Branding()
+            branding.primary = UIColor.init(hexString: veriffConfiguration["primary"]!)
+            branding.background = UIColor.init(hexString: veriffConfiguration["backgroundColor"]!)
             configuration = VeriffSdk.Configuration(branding: branding)
         }
         

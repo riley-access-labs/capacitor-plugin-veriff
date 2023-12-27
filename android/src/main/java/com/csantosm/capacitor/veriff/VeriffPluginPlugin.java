@@ -40,10 +40,13 @@ public class VeriffPluginPlugin extends Plugin {
     private void launchVeriffSDK(PluginCall call, String sessionUrl, JSONObject config) throws JSONException {
         Branding.Builder branding = new Branding.Builder();
 
-        if (!config.isNull("themeColor")) {
+        if (!config.isNull("primary")) {
             // Change the default theme color if it is not null
-            String themeColor = config.getString("themeColor");
-            branding.themeColor(Color.parseColor(themeColor));
+            String primary = config.getString("primary");
+            String backgroundColor = config.getString("backgroundColor");
+            String logo = config.getString("logo");
+            branding.primary(Color.parseColor(primary));
+            branding.background(Color.parseColor(backgroundColor));
         }
 
         Configuration configuration = new Configuration.Builder().branding(branding.build()).build();
