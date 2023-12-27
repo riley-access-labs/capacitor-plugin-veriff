@@ -17,11 +17,9 @@ public class VeriffPluginPlugin: CAPPlugin {
             branding.primary = UIColor.init(hexString: "#9747FF")
             branding.secondary = UIColor.init(hexString: "#6D11E6")
             branding.background = UIColor.init(hexString: "#FFFFFF")
-            DispatchQueue.global().async {
-                let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/gwop-dev.appspot.com/o/public%2Fgwop_logo_dark.png?alt=media&token=131c18f6-e941-4564-83cd-90eea04580df")
-                if let data = try? Data(contentsOf: url!) {
-                    branding.logo = UIImage(data: data)
-                }
+            let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/gwop-dev.appspot.com/o/public%2Fgwop_logo_dark.png?alt=media&token=131c18f6-e941-4564-83cd-90eea04580df")
+            if let data = try? Data(contentsOf: url!) {
+                branding.logo = UIImage(data: data)
             }
             configuration = VeriffSdk.Configuration(branding: branding)
         }
