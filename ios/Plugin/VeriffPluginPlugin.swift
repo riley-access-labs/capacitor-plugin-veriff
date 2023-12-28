@@ -14,19 +14,25 @@ public class VeriffPluginPlugin: CAPPlugin {
         
         if let veriffConfiguration: Dictionary<String,String> = call.getObject("configuration") as? Dictionary<String,String> {
             let branding = VeriffSdk.Branding()
-            branding.primary = UIColor.init(hexString: veriffConfiguration["primary"]!)
-            branding.secondary = UIColor.init(hexString: veriffConfiguration["secondary"]!)
-            branding.onBackgroundTertiary = UIColor.init(hexString: veriffConfiguration["onBackgroundTertiary"]!)
-            branding.onSecondary = UIColor.init(hexString: veriffConfiguration["onSecondary"]!)
-            branding.onBackgroundSecondary = UIColor.init(hexString: veriffConfiguration["onBackgroundSecondary"]!)
-            branding.background = UIColor.init(hexString: veriffConfiguration["background"]!)
-            branding.success = UIColor.init(hexString: veriffConfiguration["success"]!)
-            branding.error = UIColor.init(hexString: veriffConfiguration["error"]!)
-            branding.buttonRadius = CGFloat(8)
             let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/gwop-dev.appspot.com/o/public%2Fgwop_logo_dark.png?alt=media&token=131c18f6-e941-4564-83cd-90eea04580df")
             if let data = try? Data(contentsOf: url!) {
                 branding.logo = UIImage(data: data)
             }
+            branding.background = UIColor.init(hexString: veriffConfiguration["background"]!)
+            branding.onBackground = UIColor.init(hexString: veriffConfiguration["onBackground"]!)
+            branding.onBackgroundSecondary = UIColor.init(hexString: veriffConfiguration["onBackgroundSecondary"]!)
+            branding.onBackgroundTertiary = UIColor.init(hexString: veriffConfiguration["onBackgroundTertiary"]!)
+            branding.primary = UIColor.init(hexString: veriffConfiguration["primary"]!)
+            branding.onPrimary = UIColor.init(hexString: veriffConfiguration["onPrimary"]!)
+            branding.secondary = UIColor.init(hexString: veriffConfiguration["secondary"]!)
+            branding.onSecondary = UIColor.init(hexString: veriffConfiguration["onSecondary"]!)
+            branding.cameraOverlay = UIColor.init(hexString: veriffConfiguration["cameraOverlay"]!)
+            branding.onCameraOverlay = UIColor.init(hexString: veriffConfiguration["onCameraOverlay"]!)
+            branding.outline = UIColor.init(hexString: veriffConfiguration["outline"]!)
+            branding.error = UIColor.init(hexString: veriffConfiguration["error"]!)
+            branding.success = UIColor.init(hexString: veriffConfiguration["success"]!)
+            branding.buttonRadius = CGFloat(8)
+            branding.font = VeriffSdk.Branding.Font(regular: "Montserrat", medium: "Montserrat-Medium", bold: "Montserrat-Bold")
             configuration = VeriffSdk.Configuration(branding: branding)
         }
         
